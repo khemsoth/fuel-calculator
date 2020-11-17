@@ -1,6 +1,7 @@
 <template>
   <div>
     <main>
+      <p>All results are estimates. Your mileage may vary</p>
       <form>
         <div>
           <label for="distance">Distance: </label>
@@ -12,7 +13,7 @@
             </select>
         </div>
         <div>
-          <label for="fuel-con">Average Fuel Consumption:</label>
+          <label for="fuel-con">Average Fuel Consumption: </label>
           <input v-model="fuelConsumption" type="text"> 
             <select v-model="fluidSelected" name="fluid-value">
               <option disabled selected>Please select one</option>
@@ -51,7 +52,7 @@ export default {
       if(this.selected === 'laps') {
         this.result = this.distance * this.fuelConsumption
       } else {
-        console.log('fuck')
+        console.log('oops')
       }
     }
   }
