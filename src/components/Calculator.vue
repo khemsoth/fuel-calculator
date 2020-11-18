@@ -1,7 +1,7 @@
 <template>
   <div>
     <main>
-      <p>All results are estimates. Your mileage may vary</p>
+      <p>All results are estimates. Your mileage may vary.</p>
       <form>
         <div>
           <label for="distance">Distance: </label>
@@ -9,7 +9,7 @@
             <select v-model="selected" name="distance-value">
               <option disabled selected>Please select one</option>
               <option value="laps">Laps</option>
-              <option value="minutes">Minutes</option>
+              <option value="time">Time</option>
             </select>
         </div>
         <div>
@@ -21,6 +21,10 @@
               <option value="gallons">Gallons</option>
             </select>
           per lap
+        </div>
+        <div v-bind:style='{ visibility: laptimeVisible }'>
+          <label for="lap-time">Average Lap Time: </label>
+          <input type="number" v-model="lapTimeMin">:<input type="number" v-model="lapTimeSec">.<input type="number" v-model="lapTimeMS"> (MM:SS.sss)
         </div>
         <input v-on:click="calculate" type="button" value="Calculate!">
       </form>
@@ -41,7 +45,20 @@ export default {
       selected: 'Please select one',
       fluidSelected: 'Please select one',
       fuelConsumption: null,
-      result: null
+      result: null,
+      laptimeVisible: 'hidden',
+      lapTimeMin: null,
+      lapTimeSec: null,
+      lapTimeMS: null
+    }
+  },
+  watch: {
+    selected: function() {
+      if(this.selected === 'time') {
+        this.laptimeVisible = 'visible'
+      } else {
+        this.laptimeVisible = 'hidden'
+      }
     }
   },
   methods: {
@@ -51,10 +68,20 @@ export default {
       }
       if(this.selected === 'laps') {
         this.result = this.distance * this.fuelConsumption
+      } else if(this.selected === 'time') {
+        let avgLapMin = Number(this.lapTimeMin) + Number(this.lapTimeSec / 60) + Number((this.lapTimeMS) * 10 ** -3) / 60
+        avgLapMin.toFixed(3)
+        console.log(`avgLapMin = ${ avgLapMin }`)
+        let totalLaps = Number(this.distance) / avgLapMin
+        totalLaps.toFixed(3)
+        console.log(`total laps ${totalLaps}`)
+        let result = totalLaps * Number(this.fuelConsumption)
+        this.result = result.toFixed(3)
+        
       } else {
         console.log('oops')
       }
-    }
+    },
   }
 }
 </script>
