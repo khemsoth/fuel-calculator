@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <main>
+  <div class="flex flex-column justify-center"> 
+    <main class="border-2 border-gray-600 w-2/3">
       <p>All results are estimates. Your mileage may vary.</p>
-      <form>
+      <form class="">
         <div>
           <label for="distance">Distance: </label>
-          <input v-model="distance" type="number" name="distance"> 
+          <input class="bg-gray-200" v-model="distance" type="number" name="distance"> 
             <select v-model="selected" name="distance-value">
               <option disabled selected>Please select one</option>
               <option value="laps">Laps</option>
@@ -25,6 +25,10 @@
         <div v-bind:style='{ visibility: laptimeVisible }'>
           <label for="lap-time">Average Lap Time: </label>
           <input type="number" v-model="lapTimeMin">:<input type="number" v-model="lapTimeSec">.<input type="number" v-model="lapTimeMS"> (MM:SS.sss)
+        </div>
+        <div>
+          <label for="extra-fuel">How many laps of extra fuel do you want?</label>
+          <input v-model="extraFuel" type="number" name="extra-fuel">
         </div>
         <input v-on:click="calculate" type="button" value="Calculate!">
       </form>
@@ -47,9 +51,10 @@ export default {
       fuelConsumption: null,
       result: null,
       laptimeVisible: 'hidden',
-      lapTimeMin: null,
+      lapTimeMin: null, 
       lapTimeSec: null,
-      lapTimeMS: null
+      lapTimeMS: null,
+      extraFuel: null
     }
   },
   watch: {
@@ -76,6 +81,7 @@ export default {
         totalLaps.toFixed(3)
         console.log(`total laps ${totalLaps}`)
         let result = totalLaps * Number(this.fuelConsumption)
+        result = result + Number(this.extraFuel * this.fuelConsumption)
         this.result = result.toFixed(3)
         
       } else {
