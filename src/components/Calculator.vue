@@ -1,11 +1,12 @@
 <template>
   <div class="flex flex-column justify-center"> 
     <main class="">
+      <h2 class="text-4xl m-10">Flag-to-Flag Fuel Calculator</h2>
       <form class="flex flex-col p-6">
         <div class="my-5">
           <label class="text-left" for="distance">Distance: </label>
-          <input  class="w-full text-center" v-model="distance" type="number" name="distance"> 
-            <select v-model="selected" name="distance-value">
+          <input  class="w-full text-center mb-4" v-model="distance" type="number" name="distance"> 
+            <select class="w-2/3" v-model="selected" name="distance-value">
               <option disabled selected>Please select one</option>
               <option value="laps">Laps</option>
               <option value="time">Time</option>
@@ -13,8 +14,8 @@
         </div>
         <div class="my-5">
           <label for="fuel-con">Average Fuel Consumption: </label>
-          <input class="w-full text-center" v-model="fuelConsumption" type="text"> 
-            <select v-model="fluidSelected" name="fluid-value">
+          <input class="w-full text-center mb-4" v-model="fuelConsumption" type="number"> 
+            <select class="w-2/3" v-model="fluidSelected" name="fluid-value">
               <option disabled selected>Please select one</option>
               <option value="liters">Liters</option>
               <option value="gallons">Gallons</option>
@@ -72,7 +73,7 @@ export default {
         this.isVisible = 'visible'
       }
       if(this.selected === 'laps') {
-        this.result = this.distance * this.fuelConsumption
+        this.result = this.distance * this.fuelConsumption + this.extraFuel * this.fuelConsumption
       } else if(this.selected === 'time') {
         let avgLapMin = Number(this.lapTimeMin) + Number(this.lapTimeSec / 60) + Number((this.lapTimeMS) * 10 ** -3) / 60
         avgLapMin.toFixed(3)
@@ -93,6 +94,17 @@ export default {
 </script>
 
 <style scoped>
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
   form {
     background-color: rgba(81,185,229, .3)
