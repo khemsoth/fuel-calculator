@@ -1,20 +1,19 @@
 <template>
   <div class="flex flex-column justify-center"> 
-    <main class="border-2 border-gray-600 w-2/3">
-      <p>All results are estimates. Your mileage may vary.</p>
-      <form class="">
-        <div>
-          <label for="distance">Distance: </label>
-          <input class="bg-gray-200" v-model="distance" type="number" name="distance"> 
+    <main class="">
+      <form class="flex flex-col p-6">
+        <div class="my-5">
+          <label class="text-left" for="distance">Distance: </label>
+          <input  class="w-full text-center" v-model="distance" type="number" name="distance"> 
             <select v-model="selected" name="distance-value">
               <option disabled selected>Please select one</option>
               <option value="laps">Laps</option>
               <option value="time">Time</option>
             </select>
         </div>
-        <div>
+        <div class="my-5">
           <label for="fuel-con">Average Fuel Consumption: </label>
-          <input v-model="fuelConsumption" type="text"> 
+          <input class="w-full text-center" v-model="fuelConsumption" type="text"> 
             <select v-model="fluidSelected" name="fluid-value">
               <option disabled selected>Please select one</option>
               <option value="liters">Liters</option>
@@ -22,15 +21,16 @@
             </select>
           per lap
         </div>
-        <div v-bind:style='{ visibility: laptimeVisible }'>
+        <div class="my-5" v-bind:style='{ display: laptimeVisible }'>
           <label for="lap-time">Average Lap Time: </label>
-          <input type="number" v-model="lapTimeMin">:<input type="number" v-model="lapTimeSec">.<input type="number" v-model="lapTimeMS"> (MM:SS.sss)
+          <div class="w-full"><input class="w-1/4 text-center" type="number" v-model="lapTimeMin">:<input class="w-1/4 text-center" type="number" v-model="lapTimeSec">.<input class="w-1/4 text-center" type="number" v-model="lapTimeMS"></div> (MM:SS.sss)
         </div>
-        <div>
-          <label for="extra-fuel">How many laps of extra fuel do you want?</label>
-          <input v-model="extraFuel" type="number" name="extra-fuel">
+        <div class="my-5">
+          <label for="extra-fuel">How many laps of extra fuel do you want? </label>
+          <input class="w-full text-center" v-model="extraFuel" type="number" name="extra-fuel">
         </div>
-        <input v-on:click="calculate" type="button" value="Calculate!">
+        <input class="p-2 w-2/3 self-end " v-on:click="calculate" type="button" value="Calculate!">
+        <p class="text-gray-500 italic mt-4">All results are estimates. Your mileage may vary.</p>
       </form>
       <aside v-bind:style='{ visibility: isVisible }'>
         <p>You need {{ this.result }} {{ this.fluidSelected }} of fuel.</p>
@@ -50,7 +50,7 @@ export default {
       fluidSelected: 'Please select one',
       fuelConsumption: null,
       result: null,
-      laptimeVisible: 'hidden',
+      laptimeVisible: 'none',
       lapTimeMin: null, 
       lapTimeSec: null,
       lapTimeMS: null,
@@ -60,9 +60,9 @@ export default {
   watch: {
     selected: function() {
       if(this.selected === 'time') {
-        this.laptimeVisible = 'visible'
+        this.laptimeVisible = 'block'
       } else {
-        this.laptimeVisible = 'hidden'
+        this.laptimeVisible = 'none'
       }
     }
   },
@@ -94,5 +94,8 @@ export default {
 
 <style scoped>
 
+  form {
+    background-color: rgba(81,185,229, .3)
+  }
 
 </style>
