@@ -1,14 +1,15 @@
 <template>
   <div class="flex flex-column justify-center"> 
     <main class="">
-      <header class="bg-custom-tan p-10 mb-6">
+      <header class="bg-custom-tan p-10 mb-10">
         <h2 class="text-4xl m-10">Flag-to-Flag Fuel Calculator</h2>
       </header>
-      <section>
+      <section class="w-2/3 mx-auto mb-10">
         <h4 class="text-2xl font-semibold">Directions</h4>
         <p>
           The following calculator is to be used to calculate the amount of fuel needed for any given amount of laps or timed stint. 
           Please fill in all fields in order to get the most accurate estimates. 
+          <br>
           <br>
           <span class="font-bold">Important</span>: This calculation is not made with any extra fuel load accounted for. It is highly recommended to fill in the amount 
           of extra laps desired to give a buffer.
@@ -19,7 +20,7 @@
           <label class="text-left text-custom-tan" for="distance">Distance: </label>
           <input  class="w-full text-center mb-4" v-model="distance" type="number" name="distance"> 
           <input v-model="selected" type="radio" name="laps" value="laps"> <label class="text-custom-tan mr-6" for="laps">Laps</label>
-          <input v-model="selected" type="radio" name="time" value="time"> <label class="text-custom-tan" for="time">Time</label>
+          <input v-model="selected" type="radio" name="time" value="time"> <label class="text-custom-tan" for="time">Time <span class="italic text-sm text-custom-tan">(minutes)</span></label>
           <!--
             <select class="w-full" v-model="selected" name="distance-value">
               <option disabled selected>Please select one</option>
@@ -30,7 +31,7 @@
         </div>
         <div class="my-5">
           <label class="text-custom-tan" for="fuel-con">Average Fuel Consumption: <span class="italic text-sm text-custom-tan">(per lap)</span> </label>
-          <input class="w-full text-center mb-4 text-custom-tan" v-model="fuelConsumption" type="number"> 
+          <input class="w-full text-center mb-4" v-model="fuelConsumption" type="number"> 
           <input v-model="fluidSelected" type="radio" name="liters" value="liters"> <label class="text-custom-tan mr-6" for="liters">Liters</label>
           <input v-model="fluidSelected" type="radio" name="gallons" value="gallons"> <label class="text-custom-tan" for="gallons">Gallons</label>
           <!--
