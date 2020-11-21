@@ -2,29 +2,36 @@
   <div class="flex flex-column justify-center"> 
     <main class="">
       <h2 class="text-4xl m-10">Flag-to-Flag Fuel Calculator</h2>
-      <form class="flex flex-col p-6">
+      <form class="flex flex-col p-6 w-full">
         <div class="my-5">
           <label class="text-left" for="distance">Distance: </label>
           <input  class="w-full text-center mb-4" v-model="distance" type="number" name="distance"> 
-            <select class="w-2/3" v-model="selected" name="distance-value">
+          <input v-model="selected" type="radio" name="laps" value="laps"> <label class="mr-6" for="laps">Laps</label>
+          <input v-model="selected" type="radio" name="time" value="time"> <label for="time">Time</label>
+          <!--
+            <select class="w-full" v-model="selected" name="distance-value">
               <option disabled selected>Please select one</option>
               <option value="laps">Laps</option>
               <option value="time">Time</option>
             </select>
+            -->
         </div>
         <div class="my-5">
-          <label for="fuel-con">Average Fuel Consumption: </label>
+          <label for="fuel-con">Average Fuel Consumption: <span class="italic text-sm text-gray-600">(per lap)</span> </label>
           <input class="w-full text-center mb-4" v-model="fuelConsumption" type="number"> 
+          <input v-model="fluidSelected" type="radio" name="liters" value="liters"> <label class="mr-6" for="liters">Liters</label>
+          <input v-model="fluidSelected" type="radio" name="gallons" value="gallons"> <label for="gallons">Gallons</label>
+          <!--
             <select class="w-2/3" v-model="fluidSelected" name="fluid-value">
               <option disabled selected>Please select one</option>
               <option value="liters">Liters</option>
               <option value="gallons">Gallons</option>
             </select>
-          per lap
+          -->
         </div>
         <div class="my-5" v-bind:style='{ display: laptimeVisible }'>
           <label for="lap-time">Average Lap Time: </label>
-          <div class="w-full"><input class="w-1/4 text-center" type="number" v-model="lapTimeMin">:<input class="w-1/4 text-center" type="number" v-model="lapTimeSec">.<input class="w-1/4 text-center" type="number" v-model="lapTimeMS"></div> (MM:SS.sss)
+          <div class="w-full"><input class="w-1/4 text-center" type="number" v-model="lapTimeMin"> : <input class="w-1/4 text-center" type="number" v-model="lapTimeSec"> . <input class="w-1/4 text-center" type="number" v-model="lapTimeMS"></div> (MM:SS.sss)
         </div>
         <div class="my-5">
           <label for="extra-fuel">How many laps of extra fuel do you want? </label>
