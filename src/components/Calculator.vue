@@ -53,15 +53,16 @@ export default {
     return {
       isVisible: 'hidden', 
       distance: null,
-      selected: 'Please select one',
-      fluidSelected: 'Please select one',
+      selected: null,
+      fluidSelected: null,
       fuelConsumption: null,
       result: null,
       laptimeVisible: 'none',
       lapTimeMin: null, 
       lapTimeSec: null,
       lapTimeMS: null,
-      extraFuel: null
+      extraFuel: null,
+      formValidated: false
     }
   },
   watch: {
@@ -74,7 +75,39 @@ export default {
     }
   },
   methods: {
-    calculate() {
+    validateForm() {
+      this.errors = []
+      if(!this.distance) {
+        this.errors.push(`distance`)
+      }
+      if(!this.selected) {
+        this.errors.push(`distance unit`)
+      }
+      if(!this.fluidSelected) {
+        this.errors.push(`fuel unit`)
+      }
+      if(!this.fuelConsumption) {
+        this.errors.push(`fuel consumption`)
+      }
+      if(this.selected === 'time') {
+        if(!this.lapTimeMin || !this.lapTimeSec || !this.lapTimeMS) {
+          this.errors.push(`average lap time`)
+        } else {
+          this.formValidated = !this.formValidated
+          return
+        }
+      } else if(this.selected ==='laps') {
+        if(this.distance && this.selected && this.fluidSelected && this.fuelConsumption) {
+          this.formValidated = !this.formValidated
+        }
+      } else {
+        return
+      }
+    },
+    calculate() {  
+      this.formValidated = false
+      this.validateForm() 
+      if(this.formValidated) {
       if(this.isVisible === 'hidden') {
         this.isVisible = 'visible'
       }
@@ -90,11 +123,14 @@ export default {
         let result = totalLaps * Number(this.fuelConsumption)
         result = result + Number(this.extraFuel * this.fuelConsumption)
         this.result = result.toFixed(3)
-        
-      } else {
-        console.log('oops')
+        this.formValidated = false
       }
-    },
+      } else {
+        alert(`Please fill out ${this.errors}`)
+        this.formValidated = false
+      }
+      },
+
   }
 }
 </script>
