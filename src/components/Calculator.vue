@@ -1,20 +1,6 @@
 <template>
   <div class="flex flex-column justify-center"> 
     <main class="">
-      <header class="bg-custom-tan p-10 mb-10">
-        <h2 class="text-4xl m-10">Flag-to-Flag Fuel Calculator</h2>
-      </header>
-      <section class="w-2/3 mx-auto mb-10">
-        <h4 class="text-2xl font-semibold">Directions</h4>
-        <p>
-          The following calculator is to be used to calculate the amount of fuel needed for any given amount of laps or timed stint. 
-          Please fill in all fields in order to get the most accurate estimates. 
-          <br>
-          <br>
-          <span class="font-bold">Important</span>: This calculation is not made with any extra fuel load accounted for. It is highly recommended to fill in the amount 
-          of extra laps desired to give a buffer.
-        </p>
-      </section>
       <form class="flex flex-col p-6 w-full bg-custom-blue">
         <div class="my-5">
           <label class="text-left text-custom-tan" for="distance">Distance: </label>
@@ -53,7 +39,7 @@
         <input class="p-2 w-2/3 self-end" v-on:click="calculate" type="button" value="Calculate!">
         <p class="text-custom-tan italic mt-4">All results are estimates. Your mileage may vary.</p>
       </form>
-      <aside v-bind:style='{ visibility: isVisible }'>
+      <aside v-bind:style='{ visibility: isVisible }' class="m-8 p-6 border border-custom-orange rounded-lg">
         <p>You need {{ this.result }} {{ this.fluidSelected }} of fuel.</p>
       </aside>
     </main>
