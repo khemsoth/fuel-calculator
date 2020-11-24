@@ -7,26 +7,12 @@
           <input  class="w-full text-center mb-4" v-model="distance" type="number" name="distance"> 
           <input v-model="selected" type="radio" name="laps" value="laps"> <label class="text-custom-tan mr-6" for="laps">Laps</label>
           <input v-model="selected" type="radio" name="time" value="time"> <label class="text-custom-tan" for="time">Time <span class="italic text-sm text-custom-tan">(minutes)</span></label>
-          <!--
-            <select class="w-full" v-model="selected" name="distance-value">
-              <option disabled selected>Please select one</option>
-              <option value="laps">Laps</option>
-              <option value="time">Time</option>
-            </select>
-            -->
         </div>
         <div class="my-5">
           <label class="text-custom-tan" for="fuel-con">Average Fuel Consumption: <span class="italic text-sm text-custom-tan">(per lap)</span> </label>
           <input class="w-full text-center mb-4" v-model="fuelConsumption" type="number"> 
           <input v-model="fluidSelected" type="radio" name="liters" value="liters"> <label class="text-custom-tan mr-6" for="liters">Liters</label>
           <input v-model="fluidSelected" type="radio" name="gallons" value="gallons"> <label class="text-custom-tan" for="gallons">Gallons</label>
-          <!--
-            <select class="w-2/3" v-model="fluidSelected" name="fluid-value">
-              <option disabled selected>Please select one</option>
-              <option value="liters">Liters</option>
-              <option value="gallons">Gallons</option>
-            </select>
-          -->
         </div>
         <div class="my-5" v-bind:style='{ display: laptimeVisible }'>
           <label class="text-custom-tan" for="lap-time">Average Lap Time: </label>
