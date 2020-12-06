@@ -11,7 +11,7 @@
           <input class="calc-btn p-2 w-1/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Add Laptime" v-on:click="addLapTime">
           <input class="calc-btn p-2 w-1/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Calculate" v-on:click="calcAvgLap">
           <input class="calc-btn p-2 w-1/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Add to Fuel Calculator" v-on:click="sendToFuel">
-          <input class="calc-btn p-2 w-1/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Clear Lap Times">
+          <input class="calc-btn p-2 w-1/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Clear Lap Times" v-on:click="clearLapTimes">
         </div>
       </form>
       <h3>Lap Times:</h3>
@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     calcAvgLap() {
-      console.log(`calculating`)
       let allTimes = []
       let timeInSec
       for(let i = 0; i < this.times.length; i++) {
@@ -49,15 +48,10 @@ export default {
         timeInSec = null
       }
       let avgTotalSec = (allTimes.reduce((a, b) => a + b, 0) / allTimes.length).toFixed(3)
-      console.log(`average sec ${avgTotalSec}`)
       let avgMin = Math.floor(avgTotalSec / 60)
-      console.log(`avgMin = ${avgMin}`)
       let avgSec = Math.floor((avgTotalSec % 60).toFixed(3))
-      console.log(`avgSec = ${avgSec}`)
       let avgMs = ((avgTotalSec % 60).toFixed(3)).toString().split('.')
-      console.log(avgMs)
       avgMs = Number(avgMs[1])
-      console.log(`avgMS = ${avgMs} ${typeof(avgMs)}`)
       this.average.min = avgMin
       this.average.sec = avgSec
       this.average.ms = avgMs
@@ -74,6 +68,9 @@ export default {
     },
     sendToFuel() {
       console.log('sending')
+    },
+    clearLapTimes() {
+      this.times = []
     }
   }
 
