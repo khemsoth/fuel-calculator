@@ -105,10 +105,8 @@ export default {
       } else if(this.selected === 'time') {
         let avgLapMin = Number(this.lapTimeMin) + Number(this.lapTimeSec / 60) + Number((this.lapTimeMS) * 10 ** -3) / 60
         avgLapMin.toFixed(3)
-        console.log(`avgLapMin = ${ avgLapMin }`)
         let totalLaps = Number(this.distance) / avgLapMin
         totalLaps.toFixed(3)
-        console.log(`total laps ${totalLaps}`)
         let result = totalLaps * Number(this.fuelConsumption)
         result = result + Number(this.extraFuel * this.fuelConsumption)
         this.result = result.toFixed(3)
@@ -124,7 +122,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

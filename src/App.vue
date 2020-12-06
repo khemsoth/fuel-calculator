@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header />
-      <router-view/>
-    <Footer />
+      <router-view class="main"/>
+    <Footer class="footer" />
   </div>
 </template>
 
@@ -13,6 +13,13 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
 }
 
 #nav {
@@ -37,7 +44,7 @@ export default {
   name: 'App',
   components: {
     Header, 
-    Footer
+    Footer,
   }
 }
 </script>
