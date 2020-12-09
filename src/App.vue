@@ -1,10 +1,21 @@
 <template>
   <div id="app">
     <Header />
-      <router-view class="main"/>
+      <router-view class="main" />
     <Footer class="footer" />
   </div>
 </template>
+
+<script>
+export default {
+  name: 'app',
+  methods: {
+    heardFuel(averageLap) {
+      console.log(`heard fuel: ${averageLap.min}`)
+    }
+  }
+}
+</script>
 
 <style>
 #app {

@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { bus } from '../main'
 export default {
   name: 'AvgCalc',
   data() {
@@ -67,7 +68,7 @@ export default {
       this.ms = null
     },
     sendToFuel() {
-      console.log('sending')
+      bus.$emit('sendingFuel', this.average)
     },
     clearLapTimes() {
       this.times = []

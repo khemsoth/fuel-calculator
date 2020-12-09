@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { bus } from '../main'
 export default {
   name: 'Calculator',
   data() {
@@ -62,6 +63,11 @@ export default {
         this.laptimeVisible = 'none'
       }
     }
+  },
+  created() {
+    bus.$on('sendingFuel', (data) => {
+      console.log(`${data.min}:${data.sec}.${data.ms}`)
+    })
   },
   methods: {
     validateForm() {
@@ -117,6 +123,9 @@ export default {
         this.formValidated = false
       }
       },
+      updateMin(averageLap) {
+        this.lapTimeMin = averageLap.min
+      }
 
   }
 }

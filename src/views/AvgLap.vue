@@ -8,7 +8,9 @@
          fuel calculator. 
        </p>
      </section>
-     <AvgCalc />
+     <keep-alive>
+       <component :is='component' />
+     </keep-alive>
   </div>
 </template>
 
@@ -19,6 +21,16 @@ export default {
   name: 'AvgLap',
   components: {
     AvgCalc
+  },
+  data() {
+    return{
+      component: 'AvgCalc'
+    }
+  },
+  methods: {
+    sendingFuel(averageLap) {
+      this.$emit('sendingFuel', averageLap)
+    } 
   }
 }
 </script>
