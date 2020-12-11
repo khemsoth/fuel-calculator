@@ -1,20 +1,24 @@
 <template>
   <div>
-    <main class="w-full">
+    <main class="w-full flex flex-col">
       <form class="flex flex-col p-6 w-full bg-custom-blue">
         <div class="flex flex-col lg:w-3/4 lg:mx-auto">
-          <div class="my-5">
-            <div class="w-full text-custom-tan"><input class="w-1/4 text-center" type="number" v-model="min"> : <input class="w-1/4 text-center" type="number" v-model="sec"> . <input class="w-1/4 text-center" type="number" v-model="ms"> (MM:SS.sss)</div> 
+          <div class="my-5 mx-auto">
+            <div class="flex flex-row w-full"><input class="text-center" type="number" placeholder="MM" v-model="min"> : <input class="text-center" type="number" placeholder="SS" v-model="sec"> . <input class="text-center" type="number" placeholder="sss" v-model="ms"><!-- <span class="text-custom-tan">(MM:SS.sss)</span>--></div> 
           </div>
         </div>
-        <div class="flex flex-row justify-evenly">
-          <input class="calc-btn p-2 w-1/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Add Laptime" v-on:click="addLapTime">
-          <input class="calc-btn p-2 w-1/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Calculate" v-on:click="calcAvgLap">
-          <input class="calc-btn p-2 w-1/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Add to Fuel Calculator" v-on:click="sendToFuel">
-          <input class="calc-btn p-2 w-1/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Clear Lap Times" v-on:click="clearLapTimes">
+        <div class="flex flex-col">
+          <input class="calc-btn p-2 mx-auto my-2 w-4/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Add Laptime" v-on:click="addLapTime">
+          <input class="calc-btn p-2 mx-auto my-2 w-4/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Calculate" v-on:click="calcAvgLap">
+          <input class="calc-btn p-2 mx-auto my-2 w-4/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Add to Fuel Calculator" v-on:click="sendToFuel">
+          <input class="calc-btn p-2 mx-auto my-2 w-4/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Clear Lap Times" v-on:click="clearLapTimes">
         </div>
       </form>
-      <h3>Lap Times:</h3>
+      <div :style="{ visibility: isVisible }">
+        <h3 class="text-xl">Average Lap Time:</h3>
+        <p>{{ average.min }}:{{ average.sec }}.{{average.ms}}</p>
+      </div>
+      <h3 class="text-xl">Lap Times:</h3>
         <ul v-for="time in times" :key="time.id">
           <li>{{ time.min }}:{{ time.sec }}.{{ time.ms }}</li>
         </ul>    
@@ -36,7 +40,9 @@ export default {
         min: null,
         sec: null,
         ms: null
-      }
+      },
+      isVisible: 'hidden',
+      formValidated: false
     }
   },
   methods: {
@@ -56,8 +62,11 @@ export default {
       this.average.min = avgMin
       this.average.sec = avgSec
       this.average.ms = avgMs
+      this.isVisible = 'visible'
     },
     addLapTime() {
+      this.validateTimeFormat()
+      if(this.formValidated) {
       this.times.push({
         min: Number(this.min),
         sec: Number(this.sec),
@@ -66,12 +75,33 @@ export default {
       this.min = null
       this.sec = null
       this.ms = null
-    },
+      this.formValidated = false
+    } else {
+      return
+    }},
     sendToFuel() {
       bus.$emit('sendingFuel', this.average)
     },
     clearLapTimes() {
       this.times = []
+      this.isVisible = 'hidden'
+    },
+    validateTimeFormat() {
+      if(!this.min || !this.sec || !this.ms) {
+        alert(`Please input lap time`)
+      }
+      if(this.min || this.sec || this.ms) {
+        if(this.min.length > 3 || this.sec.length !== 2 || this.ms.length !== 3) {
+          alert(`Please use proper lap time format.`)
+          this.min = null
+          this.sec = null
+          this.ms = null
+        }
+       else if(this.min.length < 3 && this.sec.length === 2 && this.ms.length === 3) {
+        this.formValidated = true
+      }
+      } 
+
     }
   }
 

@@ -17,7 +17,7 @@
           </div>
           <div class="my-5" v-bind:style='{ display: laptimeVisible }'>
             <label class="text-custom-tan" for="lap-time">Average Lap Time: </label>
-            <div class="w-full text-custom-tan"><input class="w-1/4 text-center" type="number" v-model="lapTimeMin"> : <input class="w-1/4 text-center" type="number" v-model="lapTimeSec"> . <input class="w-1/4 text-center" type="number" v-model="lapTimeMS"> (MM:SS.sss)</div> 
+            <div class="w-full"><input class="w-1/4 text-center" type="number" v-model="lapTimeMin"> : <input class="w-1/4 text-center" type="number" v-model="lapTimeSec"> . <input class="w-1/4 text-center" type="number" v-model="lapTimeMS"> <span class="text-custom-tan">(MM:SS.sss)</span></div> 
           </div>
           <div class="my-5">
             <label class="text-custom-tan" for="extra-fuel">How many laps of extra fuel do you want? </label>
@@ -67,6 +67,9 @@ export default {
   created() {
     bus.$on('sendingFuel', (data) => {
       console.log(`${data.min}:${data.sec}.${data.ms}`)
+      this.lapTimeMin = data.min
+      this.lapTimeSec = data.sec
+      this.lapTimeMS = data.ms
     })
   },
   methods: {
@@ -122,11 +125,7 @@ export default {
         alert(`Please fill out ${this.errors}`)
         this.formValidated = false
       }
-      },
-      updateMin(averageLap) {
-        this.lapTimeMin = averageLap.min
       }
-
   }
 }
 </script>

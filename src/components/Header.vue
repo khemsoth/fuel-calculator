@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="bg-custom-tan p-10 mb-10">
+    <header class="bg-custom-tan w-full p-10 mb-10">
       <h2 class="text-4xl m-10 text-custom-blue">Flag-to-Flag Fuel Calculator</h2>
       <nav class="flex flex-row justify-center">
         <router-link class="mx-10" to="/">Fuel Calculator</router-link>

@@ -11,9 +11,7 @@
           of extra laps desired to give a buffer.
         </p>
       </section>
-    <keep-alive>
-      <component :is="calculator" />
-    </keep-alive>
+      <Calculator />
   </div>
 </template>
 
@@ -27,10 +25,5 @@ export default {
   components: {
     Calculator,
   },
-  data() {
-    return {
-      calculator: Calculator
-    }
-  }
 }
 </script>

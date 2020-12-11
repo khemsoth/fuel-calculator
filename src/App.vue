@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header />
-      <router-view class="main" />
+    <keep-alive>
+      <router-view :key="$route.fullPath" class="main" />
+    </keep-alive>
     <Footer class="footer" />
   </div>
 </template>

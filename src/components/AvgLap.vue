@@ -7,8 +7,7 @@
          Upon calculating the average lap time, you can click the "Add to Fuel Calculator" button to send your average lap time to the 
          fuel calculator. 
        </p>
-    </section>
-    <AvgCalc />
+     </section>
   </div>
 </template>
 
@@ -19,6 +18,11 @@ export default {
   name: 'AvgLap',
   components: {
     AvgCalc
+  },
+  data() {
+    return{
+      component: 'AvgCalc'
+    }
   },
   methods: {
     sendingFuel(averageLap) {
