@@ -12,9 +12,7 @@
 export default {
   name: 'app',
   methods: {
-    heardFuel(averageLap) {
-      console.log(`heard fuel: ${averageLap.min}`)
-    }
+
   }
 }
 </script>

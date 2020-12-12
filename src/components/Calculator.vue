@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-column justify-center"> 
+  <div class="flex flex-col justify-center"> 
     <main class="w-full">
       <form class="flex flex-col p-6 w-full bg-custom-blue">
-        <div class="flex flex-col lg:w-3/4 lg:mx-auto">
+        <div class="flex flex-col lg:w-3/5 lg:mx-auto xl:w-3/5">
           <div class="my-5">
             <label class="text-left text-custom-tan" for="distance">Distance: </label>
             <input  class="w-full text-center mb-4" v-model="distance" type="number" name="distance"> 
@@ -17,7 +17,7 @@
           </div>
           <div class="my-5" v-bind:style='{ display: laptimeVisible }'>
             <label class="text-custom-tan" for="lap-time">Average Lap Time: </label>
-            <div class="w-full"><input class="w-1/4 text-center" type="number" v-model="lapTimeMin"> : <input class="w-1/4 text-center" type="number" v-model="lapTimeSec"> . <input class="w-1/4 text-center" type="number" v-model="lapTimeMS"> <span class="text-custom-tan">(MM:SS.sss)</span></div> 
+            <div class="w-full text-custom-tan"><input class="w-1/4 text-center text-custom-brown" type="number" v-model="lapTimeMin"> : <input class="w-1/4 text-center text-custom-brown" type="number" v-model="lapTimeSec"> . <input class="w-1/4 text-center text-custom-brown" type="number" v-model="lapTimeMS"> (MM:SS.sss)</div> 
           </div>
           <div class="my-5">
             <label class="text-custom-tan" for="extra-fuel">How many laps of extra fuel do you want? </label>
@@ -150,5 +150,6 @@ input[type=number] {
   .calc-btn:hover {
     cursor: pointer;
   }
+
 
 </style>

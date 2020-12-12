@@ -2,12 +2,12 @@
   <div>
     <main class="w-full flex flex-col">
       <form class="flex flex-col p-6 w-full bg-custom-blue">
-        <div class="flex flex-col lg:w-3/4 lg:mx-auto">
-          <div class="my-5 mx-auto">
-            <div class="flex flex-row w-full"><input class="text-center" type="number" placeholder="MM" v-model="min"> : <input class="text-center" type="number" placeholder="SS" v-model="sec"> . <input class="text-center" type="number" placeholder="sss" v-model="ms"><!-- <span class="text-custom-tan">(MM:SS.sss)</span>--></div> 
+        <div class="flex flex-col lg:w-3/4 lg:mx-auto xl:w-3/5">
+          <div class="w-4/5 my-5 mx-auto">
+            <div class="flex flex-row text-custom-tan" @keyup.enter="addLapTime"><input ref="minInput" class="w-1/3 text-center text-custom-brown" type="number" placeholder="MM" v-model="min"> : <input class="text-center text-custom-brown w-1/3" type="number" placeholder="SS" v-model="sec"> . <input class="text-center text-custom-brown w-1/3" type="number" placeholder="sss" v-model="ms"><!-- <span class="text-custom-tan">(MM:SS.sss)</span>--></div> 
           </div>
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col sm:grid sm:grid-cols-2 sm:grid-rows-2 lg:w-3/4 lg:mx-auto xl:w-3/5">
           <input class="calc-btn p-2 mx-auto my-2 w-4/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Add Laptime" v-on:click="addLapTime">
           <input class="calc-btn p-2 mx-auto my-2 w-4/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Calculate" v-on:click="calcAvgLap">
           <input class="calc-btn p-2 mx-auto my-2 w-4/5 rounded-lg bg-white text-custom-blue hover:bg-custom-brown hover:border-custom-tan hover: border hover:text-custom-tan" type="button" value="Add to Fuel Calculator" v-on:click="sendToFuel">
@@ -76,6 +76,7 @@ export default {
       this.sec = null
       this.ms = null
       this.formValidated = false
+      this.$refs.minInput.focus()
     } else {
       return
     }},
@@ -98,7 +99,11 @@ export default {
           this.ms = null
         }
        else if(this.min.length < 3 && this.sec.length === 2 && this.ms.length === 3) {
-        this.formValidated = true
+        if(this.sec < 60) { 
+          this.formValidated = true
+        } else {
+          alert(`Please input seconds between 0-59`)
+        }
       }
       } 
 
@@ -108,6 +113,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

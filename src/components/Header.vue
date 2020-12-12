@@ -17,5 +17,8 @@ export default {
 </script>
 
 <style>
+  .router-link-exact-active {
+    font-style: italic;
+  }
 
 </style>
