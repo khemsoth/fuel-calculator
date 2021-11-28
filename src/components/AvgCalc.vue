@@ -50,27 +50,29 @@ export default {
       let allTimes = []
       let timeInSec
       for(let i = 0; i < this.times.length; i++) {
-        timeInSec = ((this.times[i].min) * 60) + this.times[i].sec + ((this.times[i].ms) * 10 ** -3)
+        timeInSec = ((this.times[i].min) * 60) + this.times[i].sec/* + ((this.times[i].ms) * 10 ** -3)*/
         allTimes.push(timeInSec)
         timeInSec = null
-      }
+      } 
       let avgTotalSec = (allTimes.reduce((a, b) => a + b, 0) / allTimes.length).toFixed(3)
       let avgMin = Math.floor(avgTotalSec / 60)
-      let avgSec = Math.floor((avgTotalSec % 60).toFixed(3))
-      let avgMs = ((avgTotalSec % 60).toFixed(3)).toString().split('.')
-      avgMs = Number(avgMs[1])
+      let avgSec = (avgTotalSec % 60).toFixed(3)
+      //let avgMs = ((avgTotalSec % 60).toFixed(3)).toString().split('.')
+      //avgMs = Number(avgMs[1])
       this.average.min = avgMin
       this.average.sec = avgSec
-      this.average.ms = avgMs
+      //this.average.ms = avgMs
       this.isVisible = 'visible'
     },
     addLapTime() {
       this.validateTimeFormat()
       if(this.formValidated) {
-      this.times.push({
+        let x = Number(this.sec)
+        let y = Number(this.ms * Math.pow(10, -3))
+        this.times.push({
         min: Number(this.min),
-        sec: Number(this.sec),
-        ms: Number(this.ms)
+        sec: x + y
+        //ms: Number(this.ms)
       })
       this.min = null
       this.sec = null

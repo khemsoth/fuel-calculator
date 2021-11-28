@@ -16,8 +16,8 @@
             <input v-model="fluidSelected" type="radio" name="gallons" value="gallons"> <label class="text-custom-tan" for="gallons">Gallons</label>
           </div>
           <div class="my-5" v-bind:style='{ display: laptimeVisible }'>
-            <label class="text-custom-tan" for="lap-time">Average Lap Time: </label>
-            <div class="w-full text-custom-tan"><input class="w-1/4 text-center text-custom-brown" type="number" v-model="lapTimeMin"> : <input class="w-1/4 text-center text-custom-brown" type="number" v-model="lapTimeSec"> . <input class="w-1/4 text-center text-custom-brown" type="number" v-model="lapTimeMS"> (MM:SS.sss)</div> 
+            <label class="text-custom-tan" for="lap-time">Average Lap Time: (MM:SS.sss)</label>
+            <div class="w-full text-custom-tan"><input class="w-1/4 text-center text-custom-brown" type="number" v-model="lapTimeMin" placeholder="MM"> : <input class="w-1/4 text-center text-custom-brown" type="number" v-model="lapTimeSec" placeholder="SS.sss"><!-- . <input class="w-1/4 text-center text-custom-brown" type="number" v-model="lapTimeMS">--></div> 
           </div>
           <div class="my-5">
             <label class="text-custom-tan" for="extra-fuel">How many laps of extra fuel do you want? </label>
@@ -66,10 +66,17 @@ export default {
   },
   created() {
     bus.$on('sendingFuel', (data) => {
-      console.log(`${data.min}:${data.sec}.${data.ms}`)
       this.lapTimeMin = data.min
       this.lapTimeSec = data.sec
-      this.lapTimeMS = data.ms
+      /*
+      let fullSeconds = data.sec
+      fullSeconds.toString()
+      console.log(typeof(fullSeconds))
+      let timeMs = fullSeconds.split('.')[1]
+      timeMs = Number(timeMs) 
+      console.log(`${typeof(timeMs)} ${timeMs}`)
+      this.lapTimeMS = timeMs
+      */
     })
   },
   methods: {
@@ -88,7 +95,7 @@ export default {
         this.errors.push(`fuel consumption`)
       }
       if(this.selected === 'time') {
-        if(!this.lapTimeMin || !this.lapTimeSec || !this.lapTimeMS) {
+        if(!this.lapTimeMin || !this.lapTimeSec) {
           this.errors.push(`average lap time`)
         } else {
           this.formValidated = !this.formValidated
@@ -112,7 +119,7 @@ export default {
       if(this.selected === 'laps') {
         this.result = this.distance * this.fuelConsumption + this.extraFuel * this.fuelConsumption
       } else if(this.selected === 'time') {
-        let avgLapMin = Number(this.lapTimeMin) + Number(this.lapTimeSec / 60) + Number((this.lapTimeMS) * 10 ** -3) / 60
+        let avgLapMin = Number(this.lapTimeMin) + Number(this.lapTimeSec / 60) /*+ Number((this.lapTimeMS) * 10 ** -3)*/
         avgLapMin.toFixed(3)
         let totalLaps = Number(this.distance) / avgLapMin
         totalLaps.toFixed(3)
