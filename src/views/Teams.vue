@@ -1,8 +1,16 @@
 <template>
-  <h1>making sure this works</h1>
+  <Team />
 </template>
 
 <script>
+  import Team from '../components/Team.vue'
+
+  export default {
+    name: 'Teams',
+    components: {
+      Team
+    }
+  }
 
 </script>
 
