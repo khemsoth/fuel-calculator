@@ -5,6 +5,7 @@
       <nav class="flex flex-row justify-center">
         <router-link class="mx-10" to="/">Fuel Calculator</router-link>
         <router-link class="mx-10" to="/avglap">Average Lap</router-link>
+        <router-link class="mx-10" to="/teams">Teams</router-link>
       </nav>
     </header>
   </div>
