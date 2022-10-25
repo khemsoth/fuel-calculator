@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import AvgLap from '../views/AvgLap'
+import Login from '../views/Login'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/avglap',
     name: 'AvgLap',
     component: AvgLap
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   }
 ]
 
